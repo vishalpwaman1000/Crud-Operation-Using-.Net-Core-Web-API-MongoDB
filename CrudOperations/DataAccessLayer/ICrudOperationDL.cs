@@ -18,6 +18,8 @@ namespace CrudOperations.DataAccessLayer
 
         public Task<UpdateRecordByIdResponse> UpdateRecordById(InsertRecordRequest request);
 
+        public Task<UpdateRecordByIdResponse> UpdateSalaryById(UpdateSalaryByIdRequest request);
+
         public Task<DeleteRecordByIdResponse> DeleteRecordById(DeleteRecordByIdRequest request);
 
         public Task<DeleteAllRecordResponse> DeleteAllRecord();

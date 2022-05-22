@@ -1,5 +1,6 @@
 ﻿using CrudOperations.Model;
 using Microsoft.Extensions.Configuration;
+using MongoDB.Bson;
 using MongoDB.Driver;
 using System;
 using System.Collections.Generic;
@@ -30,7 +31,7 @@ namespace CrudOperations.DataAccessLayer
             try
             {
                 request.CreatedDate = DateTime.Now.ToString(); // Insert Current Time
-
+                request.UpdatedDate = string.Empty;
                 await _booksCollection.InsertOneAsync(request);
 
             }
@@ -148,6 +149,30 @@ namespace CrudOperations.DataAccessLayer
             return response;
         }
 
+        public async Task<UpdateRecordByIdResponse> UpdateSalaryById(UpdateSalaryByIdRequest request)
+        {
+            UpdateRecordByIdResponse response = new UpdateRecordByIdResponse();
+            response.IsSuccess = true;
+            response.Message = "Update Salary Successfully";
+
+            try
+            {
+               /* var filter = new BsonDocument()
+                    .Add("_id", request.Id);*/
+                var updateDoc = new BsonDocument("$set",
+                    new BsonDocument("Salary", request.Salary));
+
+                var Result = await _booksCollection.UpdateOneAsync(x=>x.Id==request.Id, updateDoc);
+
+            }catch(Exception ex)
+            {
+                response.IsSuccess = false;
+                response.Message = "Exception Occurs : " + ex.Message;
+            }
+
+            return response;
+        }
+
         public async Task<DeleteRecordByIdResponse> DeleteRecordById(DeleteRecordByIdRequest request)
         {
             DeleteRecordByIdResponse response = new DeleteRecordByIdResponse();
@@ -201,5 +226,7 @@ namespace CrudOperations.DataAccessLayer
 
             return response;
         }
+
+        
     }
 }

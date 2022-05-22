@@ -104,6 +104,24 @@ namespace CrudOperations.Controllers
             return Ok(response);
         }
 
+        [HttpPatch]
+        public async Task<IActionResult> UpdateSalaryById(UpdateSalaryByIdRequest request)
+        {
+            UpdateRecordByIdResponse response = new UpdateRecordByIdResponse();
+            try
+            {
+                response = await _crudOperationDL.UpdateSalaryById(request);
+            }
+            catch (Exception ex)
+            {
+                response.IsSuccess = false;
+                response.Message = "Exception Occurs : " + ex.Message;
+            }
+
+            return Ok(response);
+        }
+
+
         [HttpDelete]
         public async Task<IActionResult> DeleteRecordById(DeleteRecordByIdRequest request)
         {

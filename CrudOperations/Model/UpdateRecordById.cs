@@ -8,24 +8,13 @@ using System.Threading.Tasks;
 
 namespace CrudOperations.Model
 {
-    public class UpdateRecordByIdRequest
+    public class UpdateSalaryByIdRequest
     {
-        [BsonId]
-        [BsonRepresentation(BsonType.ObjectId)]
-        public string? Id { get; set; }
-
-        [BsonElement("Name")]
         [Required]
-        public string FirstName { get; set; }
+        public string Id { get; set; }
 
         [Required]
-        public string LastName { get; set; }
-
-        [Required]
-        public int Age { get; set; }
-
-        [Required]
-        public string Contact { get; set; }
+        public int Salary { get; set; }
     }
 
     public class UpdateRecordByIdResponse
