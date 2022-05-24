@@ -157,10 +157,11 @@ namespace CrudOperations.DataAccessLayer
 
             try
             {
-               /* var filter = new BsonDocument()
-                    .Add("_id", request.Id);*/
-                var updateDoc = new BsonDocument("$set",
-                    new BsonDocument("Salary", request.Salary));
+                var Filter = new BsonDocument()
+                    .Add("Salary", request.Salary)
+                    .Add("UpdatedDate", DateTime.Now.ToString());
+
+                var updateDoc = new BsonDocument("$set", Filter);
 
                 var Result = await _booksCollection.UpdateOneAsync(x=>x.Id==request.Id, updateDoc);
 
